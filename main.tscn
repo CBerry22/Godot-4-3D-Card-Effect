@@ -1,0 +1,304 @@
+[gd_scene load_steps=25 format=3 uid="uid://igadjn1qe8bj"]
+
+[ext_resource type="Script" path="res://Window.gd" id="1_hsrr3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cmun3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_stuex"]
+sky_material = SubResource("ProceduralSkyMaterial_cmun3")
+
+[sub_resource type="Environment" id="Environment_e7vhf"]
+background_mode = 2
+sky = SubResource("Sky_stuex")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_dnvy4"]
+size = Vector3(0.5, 0.7, 0.01)
+
+[sub_resource type="Shader" id="Shader_sixyj"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta3's StandardMaterial3D.
+
+shader_type spatial;
+render_mode unshaded, shadows_disabled;
+
+uniform sampler2D view_tex;
+
+void fragment() {
+	vec4 view = texture(view_tex, SCREEN_UV);
+	view.rgb = mix(pow((view.rgb + vec3(0.055)) * (1.0 / (1.0 + 0.055)),vec3(2.4)),view.rgb.rgb * (1.0 / 12.92),lessThan(view.rgb,vec3(0.04045)));
+	ALBEDO = view.rgb;
+}
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1yhr5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2tsly"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_sixyj")
+shader_parameter/view_tex = SubResource("ViewportTexture_1yhr5")
+
+[sub_resource type="QuadMesh" id="QuadMesh_nvtkq"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_2tsly")
+size = Vector2(0.4, 0.4)
+
+[sub_resource type="World3D" id="World3D_vtdl8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhtfl"]
+albedo_color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h62c2"]
+material = SubResource("StandardMaterial3D_hhtfl")
+flip_faces = true
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdpux"]
+albedo_color = Color(0.552941, 0.447059, 0.917647, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6y7jk"]
+material = SubResource("StandardMaterial3D_hdpux")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_52kn5"]
+size = Vector3(0.5, 0.7, 0.01)
+
+[sub_resource type="Shader" id="Shader_rfgav"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta3's StandardMaterial3D.
+
+shader_type spatial;
+render_mode unshaded, shadows_disabled;
+
+uniform sampler2D view_tex;
+
+void fragment() {
+	vec4 view = texture(view_tex, SCREEN_UV);
+	view.rgb = mix(pow((view.rgb + vec3(0.055)) * (1.0 / (1.0 + 0.055)),vec3(2.4)),view.rgb.rgb * (1.0 / 12.92),lessThan(view.rgb,vec3(0.04045)));
+	ALBEDO = view.rgb;
+}
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3klp4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ykclb"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_rfgav")
+shader_parameter/view_tex = SubResource("ViewportTexture_3klp4")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0m330"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_ykclb")
+size = Vector2(0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dwajk"]
+size = Vector3(0.5, 0.7, 0.01)
+
+[sub_resource type="Shader" id="Shader_dle1l"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta3's StandardMaterial3D.
+
+shader_type spatial;
+render_mode unshaded, shadows_disabled;
+
+uniform sampler2D view_tex;
+
+void fragment() {
+	vec4 view = texture(view_tex, SCREEN_UV);
+	view.rgb = mix(pow((view.rgb + vec3(0.055)) * (1.0 / (1.0 + 0.055)),vec3(2.4)),view.rgb.rgb * (1.0 / 12.92),lessThan(view.rgb,vec3(0.04045)));
+	ALBEDO = view.rgb;
+}
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qa0lq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pa1i5"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_dle1l")
+shader_parameter/view_tex = SubResource("ViewportTexture_qa0lq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_72pdu"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_pa1i5")
+size = Vector2(0.4, 0.4)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e7vhf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.04536, -0.660633, 0.749337, 0.132196, 0.739543, 0.660001, -0.990185, 0.128997, 0.0537874, 0.221995, 0, 0.485005)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.988423, 0.151727, 0, -0.151727, 0.988423, 0, 0.14784, 0.910994)
+cull_mask = 1
+
+[node name="Card" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137239, 0.00046885, -0.00173485)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_dnvy4")
+
+[node name="Window" type="MeshInstance3D" parent="Card"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.106283, 0.00668727)
+mesh = SubResource("QuadMesh_nvtkq")
+script = ExtResource("1_hsrr3")
+render_layer = 1024
+
+[node name="WindowView" type="SubViewport" parent="Card/Window"]
+own_world_3d = true
+world_3d = SubResource("World3D_vtdl8")
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Card/Window/WindowView"]
+transform = Transform3D(1, 0, 0, 0, 0.988423, 0.151727, 0, -0.151727, 0.988423, 0, 0.14784, 0.910994)
+cull_mask = 1024
+
+[node name="Origin" type="Node3D" parent="Card/Window/WindowView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137239, 0.106752, 0.00495242)
+
+[node name="Room" type="MeshInstance3D" parent="Card/Window/WindowView/Origin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.193669)
+layers = 1024
+cast_shadow = 0
+mesh = SubResource("BoxMesh_h62c2")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Card/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.828881, 0, 0.559424, 0, 1, 0, -0.559424, 0, 0.828881, -0.0674063, -0.135413, 0.042927)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Card/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.87146, 0.198839, -0.448353, 0.049889, 0.873458, 0.484337, 0.487923, -0.444448, 0.751264, 0.113585, 0.0478272, 0.0287081)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Card/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.668247, -0.389596, 0.633768, 0.049889, 0.873458, 0.484337, -0.742265, -0.292038, 0.603122, 0.105015, -0.113871, -0.0826826)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Card/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.575294, 0.600233, 0.555659, -0.6905, -0.00776735, 0.72329, 0.438459, -0.799787, 0.409993, -0.0991928, 0.0861498, -0.0771468)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="DirectionalLight3D7" type="DirectionalLight3D" parent="Card/Window/WindowView"]
+transform = Transform3D(-0.04536, -0.660633, 0.749337, 0.132196, 0.739543, 0.66, -0.990185, 0.128997, 0.0537874, 0.221995, 0, 0.485005)
+layers = 1024
+shadow_enabled = true
+
+[node name="Card3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.983782, 0.179369, 0, -0.179369, 0.983782, 0, 0, 0, 1, 0.296679, -0.0165214, 0.00706464)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_52kn5")
+
+[node name="Window" type="MeshInstance3D" parent="Card3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.106283, 0.00668727)
+mesh = SubResource("QuadMesh_0m330")
+script = ExtResource("1_hsrr3")
+render_layer = 1024
+
+[node name="WindowView" type="SubViewport" parent="Card3/Window"]
+own_world_3d = true
+world_3d = SubResource("World3D_vtdl8")
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Card3/Window/WindowView"]
+transform = Transform3D(1, 0, 0, 0, 0.988423, 0.151727, 0, -0.151727, 0.988423, 0, 0.14784, 0.910994)
+cull_mask = 1024
+
+[node name="Origin" type="Node3D" parent="Card3/Window/WindowView"]
+transform = Transform3D(0.983782, 0.179369, 0, -0.179369, 0.983782, 0, 0, 0, 1, 0.315743, 0.0880379, 0.0137519)
+
+[node name="Room" type="MeshInstance3D" parent="Card3/Window/WindowView/Origin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.193669)
+layers = 1024
+cast_shadow = 0
+mesh = SubResource("BoxMesh_h62c2")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Card3/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.828881, 0, 0.559424, 0, 1, 0, -0.559424, 0, 0.828881, -0.0674063, -0.135413, 0.042927)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Card3/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.87146, 0.198839, -0.448353, 0.049889, 0.873458, 0.484337, 0.487923, -0.444448, 0.751264, 0.113585, 0.0478272, 0.0287081)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Card3/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.668247, -0.389596, 0.633768, 0.049889, 0.873458, 0.484337, -0.742265, -0.292038, 0.603122, 0.105015, -0.113871, -0.0826826)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Card3/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.575294, 0.600233, 0.555659, -0.6905, -0.00776735, 0.72329, 0.438459, -0.799787, 0.409993, -0.0991928, 0.0861498, -0.0771468)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="DirectionalLight3D6" type="DirectionalLight3D" parent="Card3/Window/WindowView"]
+transform = Transform3D(-0.04536, -0.660633, 0.749337, 0.132196, 0.739543, 0.66, -0.990185, 0.128997, 0.0537874, 0.221995, 0, 0.485005)
+layers = 1024
+shadow_enabled = true
+
+[node name="Card2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.97437, -0.224951, 0, 0.224951, 0.97437, 0, 0, 0, 1, -0.47218, -0.0280212, -0.00970745)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_dwajk")
+
+[node name="Window" type="MeshInstance3D" parent="Card2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.106283, 0.00668727)
+mesh = SubResource("QuadMesh_72pdu")
+script = ExtResource("1_hsrr3")
+render_layer = 1024
+
+[node name="WindowView" type="SubViewport" parent="Card2/Window"]
+own_world_3d = true
+world_3d = SubResource("World3D_vtdl8")
+render_target_update_mode = 4
+
+[node name="Origin" type="Node3D" parent="Card2/Window/WindowView"]
+transform = Transform3D(0.97437, -0.224951, 0, 0.224951, 0.97437, 0, 0, 0, 1, -0.496089, 0.0755377, -0.00302018)
+
+[node name="Room" type="MeshInstance3D" parent="Card2/Window/WindowView/Origin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47035e-07, -5.96046e-08, -0.193669)
+layers = 1024
+cast_shadow = 0
+mesh = SubResource("BoxMesh_h62c2")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Card2/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.828881, 0, 0.559424, 0, 1, 0, -0.559424, 0, 0.828881, -0.0674063, -0.135413, 0.042927)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Card2/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.87146, 0.198839, -0.448353, 0.049889, 0.873458, 0.484337, 0.487923, -0.444448, 0.751264, 0.113585, 0.0478272, 0.0287081)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Card2/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.668247, -0.389596, 0.633768, 0.049889, 0.873458, 0.484337, -0.742265, -0.292038, 0.603122, 0.105015, -0.113871, -0.0826826)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Card2/Window/WindowView/Origin/Room"]
+transform = Transform3D(0.575294, 0.600233, 0.555659, -0.6905, -0.00776735, 0.72329, 0.438459, -0.799787, 0.409993, -0.0991928, 0.0861498, -0.0771468)
+layers = 1024
+mesh = SubResource("BoxMesh_6y7jk")
+
+[node name="Camera3D" type="Camera3D" parent="Card2/Window/WindowView"]
+transform = Transform3D(1, 0, 0, 0, 0.988423, 0.151727, 0, -0.151727, 0.988423, 0, 0.14784, 0.910994)
+cull_mask = 1024
+
+[node name="DirectionalLight3D5" type="DirectionalLight3D" parent="Card2/Window/WindowView"]
+transform = Transform3D(-0.04536, -0.660633, 0.749337, 0.132196, 0.739543, 0.66, -0.990185, 0.128997, 0.0537874, 0.221995, 0, 0.485005)
+layers = 1024
+shadow_enabled = true
